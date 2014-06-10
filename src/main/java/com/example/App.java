@@ -25,7 +25,7 @@ public class App  extends AbstractHandler
 {	
   private static List<Tweets> listTweets = new LinkedList<Tweets>();
   
-  public App(){
+  public App()throws Exception{
 	  readFiles();
   }
   
@@ -42,8 +42,7 @@ public class App  extends AbstractHandler
 	    }
   }
   
-  private static void readFiles(){
-    try{
+  private static void readFiles()throws Exception{
       ObjectMapper mapper = new ObjectMapper();
       File dir = new File("/home/dc/event-server-master/data/mnf");
       File []listFiles = dir.listFiles();
@@ -51,16 +50,11 @@ public class App  extends AbstractHandler
         List<String> list = Files.readLines(f, Charset.defaultCharset());
        
         for(String s:list){
-        	//System.out.println("s:"+s);
-//        	Tweets tw = mapper.readValue(s, Tweets.class);
-//        	System.out.println("tw:"+tw.toString());
         	listTweets.add(mapper.readValue(s, Tweets.class));
         }
         System.out.println("num tweets:"+listTweets.size());
       }
-    }catch(Exception e){
-      e.printStackTrace();
-    }
+    
   }
 
   class TweetQueue {
