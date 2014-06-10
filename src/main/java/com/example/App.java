@@ -44,7 +44,7 @@ public class App  extends AbstractHandler
   
   private static void readFiles()throws Exception{
       ObjectMapper mapper = new ObjectMapper();
-      File dir = new File("/home/dc/event-server-master/data/mnf");
+      File dir = new File("/home/dc/TwitterServer/tweetfiles");
       File []listFiles = dir.listFiles();
       for(File f:listFiles){
         List<String> list = Files.readLines(f, Charset.defaultCharset());
