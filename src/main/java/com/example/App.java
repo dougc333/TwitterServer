@@ -28,22 +28,6 @@ public class App  extends AbstractHandler
   public App(){
 	  readFiles();
   }
-  /**
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)throws IOException{
-	  //put into queue to control delivery
-	  while(true){
-  	    for(Tweets tweet:listTweets){
-          StringWriter sw = new StringWriter();
-          ObjectMapper mapper = new ObjectMapper();
-          Writer writer = response.getWriter();
-          mapper.writeValue(sw, tweet);
-          writer.write(sw.toString());
-          writer.write("\n");
-          response.flushBuffer();
-	    }
-	  }
-  }
-  */
   
   public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)throws IOException{
 	  for(Tweets tweet:listTweets){
@@ -53,7 +37,6 @@ public class App  extends AbstractHandler
           writer.write("<html><body>");
           mapper.writeValue(sw, tweet);
           writer.write(sw.toString());
-          writer.write("\n");
           writer.write("</body></html>");
           response.flushBuffer();
 	    }
@@ -73,6 +56,7 @@ public class App  extends AbstractHandler
 //        	System.out.println("tw:"+tw.toString());
         	listTweets.add(mapper.readValue(s, Tweets.class));
         }
+        System.out.println("num tweets:"+listTweets.size());
       }
     }catch(Exception e){
       e.printStackTrace();
@@ -86,7 +70,7 @@ public class App  extends AbstractHandler
   public static void main( String[] args ) throws Exception
   {
 	App a = new App();
-    System.out.println( "Hello World!" );
+    System.out.println( "Starting Server port localhost:8081" );
     Server server = new Server(8081);
     server.setHandler(a);
     server.start();
